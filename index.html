@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ばんぐぅ</title>
+<meta name="viewport" content="width=device-width">
+<link href="css/reset.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="js/jquery.ui.touch-punch.min.js"></script>
+</head>
+<body>
+	<div class="all">
+		<div class="menuArea">
+			<div class="btnBlock">
+				<button class="addBtn">増えるよ</button>
+				<button class="removeBtn">減るよ</button>
+				<button class="bgcBtn">パリピ</button>
+			</div>
+			<p class="message">現在のばんぐぅは<span>0</span>匹です(･Θ･)</p>
+		</div>
+		<div class="banguArea"></div>
+	</div>
+	<div class="noticeModal"><div class="notice"></div></div>
+<script>
+$(function(){
+	var animationNames = ['purun','korokoro','purupuru','poyon','poyooon', 'puyon', 'pururun', 'spin', 'flash'];
+	var bangu = ['bangu','bangu','bangu','bangu','bangu', 'bangu', 'bangu2'];
+
+	$('.addBtn').on('click', function(){
+		var randomAnime = animationNames[Math.floor(Math.random() * animationNames.length)];
+		var banguRandom = bangu[Math.floor(Math.random() * bangu.length)];
+		$('.banguArea').append('<img src="./img/' + banguRandom + '.png" alt="ばんぐぅ" class="' + randomAnime + '" >');
+		var num = $('.banguArea img').length;
+		$('.message span').text(num);
+	});
+
+	$('.removeBtn').on('click', function(){
+		$('.noticeModal').fadeIn();
+		if($('.banguArea img').length == 0) {
+			$('.noticeModal .notice').text('ばんぐぅ、いないよ');
+		} else {
+			$('.noticeModal .notice').text('ばんぐぅ消すなんてダメ！絶対！');
+		}
+	});
+
+	$('.noticeModal').on('click', function(){
+		$('.noticeModal').fadeOut();
+	});
+
+	$('.bgcBtn').on('click', function(){
+		if ($('body').hasClass('changeBgc')) {
+			$('body').removeClass('changeBgc');
+			$('.bgcBtn').css('background-color', '#ffc107').text('パリピ');
+		} else {
+			$('body').addClass('changeBgc');
+			$('.bgcBtn').css('background-color', '#f44336').text('止める');
+		}
+	});
+
+	$('.banguArea').sortable();
+	$('.banguArea').disableSelection();
+});
+</script>
+</body>
+</html>
